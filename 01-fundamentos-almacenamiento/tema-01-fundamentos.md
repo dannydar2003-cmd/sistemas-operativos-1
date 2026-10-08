@@ -173,34 +173,18 @@ La idea principal es:
 
 # 6. La escalera de unidades
 
-```text
-                     MÁS GRANDE
-                         ↑
-                        TB
-                         ↑
-                     × 1024
-                        GB
-                         ↑
-                     × 1024
-                        MB
-                         ↑
-                     × 1024
-                        KB
-                         ↑
-                     × 1024
-                       Byte
-                         ↑
-                       8 bits
-                         ↑
-                        Bit
+## 📊 Jerarquía de las unidades
+
+```mermaid
+flowchart LR
+    A["Bit"] -->|"8 bits"| B["Byte"]
+    B -->|"1024 bytes"| C["KB"]
+    C -->|"1024 KB"| D["MB"]
+    D -->|"1024 MB"| E["GB"]
+    E -->|"1024 GB"| F["TB"]
 ```
 
-Otra forma de verlo:
-
-```text
-Byte → KB → MB → GB → TB
-       ÷1024 ÷1024 ÷1024 ÷1024
-```
+Este diagrama muestra cómo pasamos desde la unidad mínima de información hasta unidades cada vez mayores.
 
 Cuando avanzamos hacia una unidad más grande:
 
@@ -244,6 +228,25 @@ Para mantenernos alineados con lo explicado por el docente, en nuestros ejercici
 ---
 
 # 8. Regla para convertir unidades
+
+## 📊 Regla visual de conversión
+
+```mermaid
+flowchart LR
+    subgraph A["Hacia unidades más pequeñas"]
+        T1["TB"] -->|"× 1024"| G1["GB"]
+        G1 -->|"× 1024"| M1["MB"]
+        M1 -->|"× 1024"| K1["KB"]
+        K1 -->|"× 1024"| B1["Byte"]
+    end
+
+    subgraph B["Hacia unidades más grandes"]
+        B2["Byte"] -->|"÷ 1024"| K2["KB"]
+        K2 -->|"÷ 1024"| M2["MB"]
+        M2 -->|"÷ 1024"| G2["GB"]
+        G2 -->|"÷ 1024"| T2["TB"]
+    end
+```
 
 ## De una unidad grande a una pequeña
 
@@ -363,11 +366,12 @@ y cada sector tenía:
 
 **512 bytes**
 
-```text
-Sector 1 = 512 bytes
-Sector 2 = 512 bytes
-──────────────────────
-Cluster   = 1024 bytes
+## 📊 Cómo se forma el cluster del ejemplo
+
+```mermaid
+flowchart LR
+    S1["Sector 1<br/>512 bytes"] --> C["Cluster<br/>1024 bytes = 1 KB"]
+    S2["Sector 2<br/>512 bytes"] --> C
 ```
 
 Como:
@@ -379,6 +383,8 @@ entonces:
 **1 cluster = 1 KB**
 
 en ese ejemplo concreto.
+
+> ⚠️ **Importante:** un cluster no siempre mide 1 KB. Este tamaño corresponde únicamente al ejemplo trabajado en clase; depende del sistema de archivos y de su configuración.
 
 ---
 
@@ -406,25 +412,22 @@ Por lo tanto, el archivo estaba utilizando:
 
 aunque su contenido solamente necesitara 4 bytes.
 
-```text
-Archivo beta.txt
-Contenido: "hola"
+## 📊 ¿Cómo pasa de 4 bytes a 1 KB en disco?
 
-Información real:
-┌────┬────┬────┬────┐
-│ h  │ o  │ l  │ a  │
-└────┴────┴────┴────┘
-   4 bytes utilizados
-
-
-Espacio reservado:
-┌───────────────────────────────────────┐
-│              1 CLUSTER                │
-│              1024 bytes               │
-│                                       │
-│ 4 bytes usados + espacio restante     │
-└───────────────────────────────────────┘
+```mermaid
+flowchart TD
+    A["Archivo beta.txt"] --> B["Contenido: hola"]
+    B --> C["Tamaño lógico<br/>4 bytes"]
+    C --> D["Sistema de archivos"]
+    D --> E["Asigna 1 cluster"]
+    E --> F["2 sectores × 512 bytes"]
+    F --> G["Tamaño en disco<br/>1024 bytes = 1 KB"]
 ```
+
+El diagrama separa dos ideas diferentes:
+
+- **4 bytes** representan la información real del archivo.
+- **1 KB** representa el espacio mínimo asignado en disco en este ejemplo.
 
 Por eso:
 
@@ -641,47 +644,25 @@ D) 8
 
 ---
 
-# 24. Mapa mental del tema
+# 24. Mapa conceptual del tema
 
-```text
-                 INFORMACIÓN DIGITAL
-                        │
-                        ▼
-                       BIT
-                        │
-                   8 bits
-                        ▼
-                      BYTE
-                        │
-                    × 1024
-                        ▼
-                       KB
-                        │
-                    × 1024
-                        ▼
-                       MB
-                        │
-                    × 1024
-                        ▼
-                       GB
-                        │
-                    × 1024
-                        ▼
-                       TB
+Este mapa conecta lo aprendido hoy con los temas que veremos después:
 
-
-Luego utilizaremos estas unidades para entender:
-
-BYTE
-  ↓
-SECTOR
-  ↓
-CLUSTER
-  ↓
-ARCHIVO
-  ↓
-VOLUMEN
+```mermaid
+flowchart LR
+    D["Disco"] --> P["Partición"]
+    P --> V["Volumen"]
+    V --> SF["Sistema de archivos"]
+    SF -->|"organiza"| A["Archivo"]
+    A -->|"ocupa uno o más"| C["Cluster"]
+    C -->|"se compone de"| S["Sector"]
+    S -->|"contiene"| B["Bytes"]
+    B -->|"8 bits por byte"| BIT["Bits"]
 ```
+
+La cadena nos permite relacionar la estructura del almacenamiento con la información que finalmente contienen los archivos:
+
+**Disco → Partición → Volumen → Sistema de archivos → Archivo → Cluster → Sector → Bytes → Bits**
 
 ---
 
