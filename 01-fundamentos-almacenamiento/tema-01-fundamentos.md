@@ -1,6 +1,8 @@
 # Tema 1 — Fundamentos de almacenamiento y unidades de información
 
-![Infografía resumen del Tema 1](imagenes/tema-01-infografia.png)
+## 🖼️ Guía visual del tema
+
+![Guía visual de fundamentos de almacenamiento](imagenes/tema-01-guia-visual.png)
 
 ## 🎯 Objetivo de aprendizaje
 

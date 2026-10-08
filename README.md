@@ -30,7 +30,7 @@ sistemas-operativos-1/
 ├── 01-fundamentos-almacenamiento/
 │   ├── tema-01-fundamentos.md
 │   └── imagenes/
-│       └── tema-01-infografia.png
+│       └── tema-01-guia-visual.png
 │
 ├── 02-dispositivos-almacenamiento/
 ├── 03-sectores/
@@ -46,7 +46,7 @@ sistemas-operativos-1/
 ## ✅ Estado actual
 
 - [x] Tema 1 desarrollado
-- [x] Infografía del Tema 1 agregada
+- [x] Guía visual del Tema 1 agregada
 - [ ] Tema 2 pendiente
 - [ ] Tema 3 pendiente
 - [ ] Tema 4 pendiente
